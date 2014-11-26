@@ -1,0 +1,13 @@
+---
+- name: update yum
+  yum: name=* state=latest
+
+- name: install common packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - epel-release
+    - git
+    - supervisor
+
+- name: install pip
+  easy_install: name=pip
