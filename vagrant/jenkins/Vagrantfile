@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "chef/centos-7.0"
+
+  # jenkins
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
+
+  # VM option
+  config.vm.provider "virtualbox" do |v|
+    v.customize ["modifyvm", :id, "--memory","1024"]
+    v.customize ["modifyvm", :id, "--cpus","1"]
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+
+  # ansible
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provisioning/site.yml"
+    ansible.inventory_path = "provisioning/inventory/local"
+    ansible.limit = "all"
+  end
+end

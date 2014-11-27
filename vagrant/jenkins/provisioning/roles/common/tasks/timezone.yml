@@ -1,0 +1,3 @@
+---
+- name: ensure jst
+  file: force=true src=/usr/share/zoneinfo/Japan dest=/etc/localtime state=link
