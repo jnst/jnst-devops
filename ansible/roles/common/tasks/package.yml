@@ -7,7 +7,6 @@
   with_items:
     - epel-release
     - git
-    - supervisor
 
 - name: install pip
   easy_install: name=pip

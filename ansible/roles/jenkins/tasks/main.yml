@@ -1,12 +1,16 @@
 ---
 - name: install jdk7
-  yum: name=java-1.7.0-openjdk.x86_64 state=latest
+  yum: name=java-1.7.0-openjdk-devel state=latest
 
 - name: download jenkins repo
-  get_url: url=http://pkg.jenkins-ci.org/redhat/jenkins.repo dest=/etc/yum.repos.d/
+  get_url:
+    url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
 
-- name: import jenkins public key
-  rpm_key: state=present key=http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+- name: import jenkins gpg key
+  rpm_key:
+    state: present
+    key: http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 
 - name: install jenkins
   yum: name=jenkins state=present
